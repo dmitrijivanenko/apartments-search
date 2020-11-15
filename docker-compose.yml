@@ -1,0 +1,47 @@
+version: "3.7"
+services:
+  app:
+    build:
+      args:
+        user: dmiva
+        uid: 1000
+      context: ./
+      dockerfile: Dockerfile
+    image: apartments
+    container_name: apartments-app
+    restart: unless-stopped
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - apartments
+
+  db:
+    image: mysql:5.7
+    container_name: apartments-db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: apartments
+      MYSQL_ROOT_PASSWORD: 500ZlobnihKotikov
+      MYSQL_PASSWORD: 200ZlobnihKotikov
+      MYSQL_USER: dmiva
+      SERVICE_TAGS: dev
+      SERVICE_NAME: mysql
+    networks:
+      - apartments
+
+  nginx:
+    image: nginx:alpine
+    container_name: apartments-nginx
+    restart: unless-stopped
+    ports:
+      - 9200:80
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - apartments
+
+networks:
+  apartments:
+    driver: bridge
