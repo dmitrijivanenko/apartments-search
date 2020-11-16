@@ -35,7 +35,7 @@ services:
     container_name: apartments-nginx
     restart: unless-stopped
     ports:
-      - 9200:80
+      - 9000:80
     volumes:
       - ./:/var/www
       - ./docker-compose/nginx:/etc/nginx/conf.d/

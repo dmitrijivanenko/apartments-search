@@ -8,4 +8,4 @@ bin/setup.sh
 ```
 
 It will setup the environment, run the migrations, seed the database, run the functional tests. 
-The application will be available on http://localhost:9200/.
+The application will be available on http://localhost:9000/.
